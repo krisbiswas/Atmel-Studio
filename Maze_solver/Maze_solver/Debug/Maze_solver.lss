@@ -1,0 +1,705 @@
+
+Maze_solver.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  0000051e  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000004aa  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000004  00800100  00800100  0000051e  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000051e  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000550  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000068  00000000  00000000  00000590  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000c63  00000000  00000000  000005f8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000804  00000000  00000000  0000125b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   0000064e  00000000  00000000  00001a5f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000100  00000000  00000000  000020b0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000053d  00000000  00000000  000021b0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000065f  00000000  00000000  000026ed  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000090  00000000  00000000  00002d4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   8:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+   c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  10:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  14:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  18:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  1c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  20:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  24:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  28:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  2c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  30:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  34:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  38:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  3c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  40:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  44:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  48:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  4c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  50:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  54:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  58:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  5c:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  60:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+  64:	0c 94 46 00 	jmp	0x8c	; 0x8c <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_clear_bss>:
+  74:	21 e0       	ldi	r18, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	01 c0       	rjmp	.+2      	; 0x7e <.do_clear_bss_start>
+
+0000007c <.do_clear_bss_loop>:
+  7c:	1d 92       	st	X+, r1
+
+0000007e <.do_clear_bss_start>:
+  7e:	a4 30       	cpi	r26, 0x04	; 4
+  80:	b2 07       	cpc	r27, r18
+  82:	e1 f7       	brne	.-8      	; 0x7c <.do_clear_bss_loop>
+  84:	0e 94 08 02 	call	0x410	; 0x410 <main>
+  88:	0c 94 53 02 	jmp	0x4a6	; 0x4a6 <_exit>
+
+0000008c <__bad_interrupt>:
+  8c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000090 <_Z14initialize_ADCv>:
+	}else{
+		go('S');
+	}
+}
+
+void optimize_path(char* path){
+  90:	80 e6       	ldi	r24, 0x60	; 96
+  92:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__DATA_REGION_ORIGIN__+0x1c>
+  96:	86 e8       	ldi	r24, 0x86	; 134
+  98:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__DATA_REGION_ORIGIN__+0x1a>
+  9c:	81 e0       	ldi	r24, 0x01	; 1
+  9e:	80 93 7e 00 	sts	0x007E, r24	; 0x80007e <__DATA_REGION_ORIGIN__+0x1e>
+  a2:	08 95       	ret
+
+000000a4 <_Z13initialize_IOv>:
+  a4:	8a b1       	in	r24, 0x0a	; 10
+  a6:	8f 70       	andi	r24, 0x0F	; 15
+  a8:	8a b9       	out	0x0a, r24	; 10
+  aa:	8b b1       	in	r24, 0x0b	; 11
+  ac:	80 6f       	ori	r24, 0xF0	; 240
+  ae:	8b b9       	out	0x0b, r24	; 11
+  b0:	84 b1       	in	r24, 0x04	; 4
+  b2:	8e 61       	ori	r24, 0x1E	; 30
+  b4:	84 b9       	out	0x04, r24	; 4
+  b6:	0e 94 48 00 	call	0x90	; 0x90 <_Z14initialize_ADCv>
+  ba:	08 95       	ret
+
+000000bc <_Z7read_ULv>:
+  bc:	ea e7       	ldi	r30, 0x7A	; 122
+  be:	f0 e0       	ldi	r31, 0x00	; 0
+  c0:	80 81       	ld	r24, Z
+  c2:	80 64       	ori	r24, 0x40	; 64
+  c4:	80 83       	st	Z, r24
+  c6:	80 81       	ld	r24, Z
+  c8:	86 fd       	sbrc	r24, 6
+  ca:	fd cf       	rjmp	.-6      	; 0xc6 <_Z7read_ULv+0xa>
+  cc:	80 e0       	ldi	r24, 0x00	; 0
+  ce:	08 95       	ret
+
+000000d0 <_Z17check_availablityv>:
+  d0:	99 b1       	in	r25, 0x09	; 9
+  d2:	81 e0       	ldi	r24, 0x01	; 1
+  d4:	91 11       	cpse	r25, r1
+  d6:	01 c0       	rjmp	.+2      	; 0xda <_Z17check_availablityv+0xa>
+  d8:	80 e0       	ldi	r24, 0x00	; 0
+  da:	80 93 03 01 	sts	0x0103, r24	; 0x800103 <available_left>
+  de:	99 b1       	in	r25, 0x09	; 9
+  e0:	81 e0       	ldi	r24, 0x01	; 1
+  e2:	91 11       	cpse	r25, r1
+  e4:	01 c0       	rjmp	.+2      	; 0xe8 <_Z17check_availablityv+0x18>
+  e6:	80 e0       	ldi	r24, 0x00	; 0
+  e8:	80 93 01 01 	sts	0x0101, r24	; 0x800101 <available_straightl>
+  ec:	99 b1       	in	r25, 0x09	; 9
+  ee:	81 e0       	ldi	r24, 0x01	; 1
+  f0:	91 11       	cpse	r25, r1
+  f2:	01 c0       	rjmp	.+2      	; 0xf6 <_Z17check_availablityv+0x26>
+  f4:	80 e0       	ldi	r24, 0x00	; 0
+  f6:	80 93 00 01 	sts	0x0100, r24	; 0x800100 <_edata>
+  fa:	99 b1       	in	r25, 0x09	; 9
+  fc:	81 e0       	ldi	r24, 0x01	; 1
+  fe:	91 11       	cpse	r25, r1
+ 100:	01 c0       	rjmp	.+2      	; 0x104 <_Z17check_availablityv+0x34>
+ 102:	80 e0       	ldi	r24, 0x00	; 0
+ 104:	80 93 02 01 	sts	0x0102, r24	; 0x800102 <available_right>
+ 108:	08 95       	ret
+
+0000010a <_Z2goc>:
+ 10a:	86 34       	cpi	r24, 0x46	; 70
+ 10c:	61 f1       	breq	.+88     	; 0x166 <_Z2goc+0x5c>
+ 10e:	20 f4       	brcc	.+8      	; 0x118 <_Z2goc+0xe>
+ 110:	82 34       	cpi	r24, 0x42	; 66
+ 112:	09 f4       	brne	.+2      	; 0x116 <_Z2goc+0xc>
+ 114:	49 c0       	rjmp	.+146    	; 0x1a8 <_Z2goc+0x9e>
+ 116:	5a c0       	rjmp	.+180    	; 0x1cc <_Z2goc+0xc2>
+ 118:	8c 34       	cpi	r24, 0x4C	; 76
+ 11a:	19 f0       	breq	.+6      	; 0x122 <_Z2goc+0x18>
+ 11c:	82 35       	cpi	r24, 0x52	; 82
+ 11e:	91 f0       	breq	.+36     	; 0x144 <_Z2goc+0x3a>
+ 120:	55 c0       	rjmp	.+170    	; 0x1cc <_Z2goc+0xc2>
+ 122:	85 b1       	in	r24, 0x05	; 5
+ 124:	85 7f       	andi	r24, 0xF5	; 245
+ 126:	85 b9       	out	0x05, r24	; 5
+ 128:	84 e1       	ldi	r24, 0x14	; 20
+ 12a:	85 b9       	out	0x05, r24	; 5
+ 12c:	2f ef       	ldi	r18, 0xFF	; 255
+ 12e:	87 e8       	ldi	r24, 0x87	; 135
+ 130:	93 e1       	ldi	r25, 0x13	; 19
+ 132:	21 50       	subi	r18, 0x01	; 1
+ 134:	80 40       	sbci	r24, 0x00	; 0
+ 136:	90 40       	sbci	r25, 0x00	; 0
+ 138:	e1 f7       	brne	.-8      	; 0x132 <_Z2goc+0x28>
+ 13a:	00 c0       	rjmp	.+0      	; 0x13c <_Z2goc+0x32>
+ 13c:	00 00       	nop
+ 13e:	4e 9b       	sbis	0x09, 6	; 9
+ 140:	fe cf       	rjmp	.-4      	; 0x13e <_Z2goc+0x34>
+ 142:	08 95       	ret
+ 144:	85 b1       	in	r24, 0x05	; 5
+ 146:	8b 7e       	andi	r24, 0xEB	; 235
+ 148:	85 b9       	out	0x05, r24	; 5
+ 14a:	8a e0       	ldi	r24, 0x0A	; 10
+ 14c:	85 b9       	out	0x05, r24	; 5
+ 14e:	2f ef       	ldi	r18, 0xFF	; 255
+ 150:	87 e8       	ldi	r24, 0x87	; 135
+ 152:	93 e1       	ldi	r25, 0x13	; 19
+ 154:	21 50       	subi	r18, 0x01	; 1
+ 156:	80 40       	sbci	r24, 0x00	; 0
+ 158:	90 40       	sbci	r25, 0x00	; 0
+ 15a:	e1 f7       	brne	.-8      	; 0x154 <_Z2goc+0x4a>
+ 15c:	00 c0       	rjmp	.+0      	; 0x15e <_Z2goc+0x54>
+ 15e:	00 00       	nop
+ 160:	4e 9b       	sbis	0x09, 6	; 9
+ 162:	fe cf       	rjmp	.-4      	; 0x160 <_Z2goc+0x56>
+ 164:	08 95       	ret
+ 166:	85 b1       	in	r24, 0x05	; 5
+ 168:	8d 7e       	andi	r24, 0xED	; 237
+ 16a:	85 b9       	out	0x05, r24	; 5
+ 16c:	8c e0       	ldi	r24, 0x0C	; 12
+ 16e:	85 b9       	out	0x05, r24	; 5
+ 170:	2f ef       	ldi	r18, 0xFF	; 255
+ 172:	87 e8       	ldi	r24, 0x87	; 135
+ 174:	93 e1       	ldi	r25, 0x13	; 19
+ 176:	21 50       	subi	r18, 0x01	; 1
+ 178:	80 40       	sbci	r24, 0x00	; 0
+ 17a:	90 40       	sbci	r25, 0x00	; 0
+ 17c:	e1 f7       	brne	.-8      	; 0x176 <_Z2goc+0x6c>
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <_Z2goc+0x76>
+ 180:	00 00       	nop
+ 182:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <available_left>
+ 186:	88 23       	and	r24, r24
+ 188:	21 f0       	breq	.+8      	; 0x192 <_Z2goc+0x88>
+ 18a:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <available_right>
+ 18e:	81 11       	cpse	r24, r1
+ 190:	24 c0       	rjmp	.+72     	; 0x1da <_Z2goc+0xd0>
+ 192:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <available_straightl>
+ 196:	88 23       	and	r24, r24
+ 198:	01 f1       	breq	.+64     	; 0x1da <_Z2goc+0xd0>
+ 19a:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+ 19e:	88 23       	and	r24, r24
+ 1a0:	e1 f0       	breq	.+56     	; 0x1da <_Z2goc+0xd0>
+ 1a2:	0e 94 68 00 	call	0xd0	; 0xd0 <_Z17check_availablityv>
+ 1a6:	ed cf       	rjmp	.-38     	; 0x182 <_Z2goc+0x78>
+ 1a8:	85 b1       	in	r24, 0x05	; 5
+ 1aa:	85 7f       	andi	r24, 0xF5	; 245
+ 1ac:	85 b9       	out	0x05, r24	; 5
+ 1ae:	84 e1       	ldi	r24, 0x14	; 20
+ 1b0:	85 b9       	out	0x05, r24	; 5
+ 1b2:	2f ef       	ldi	r18, 0xFF	; 255
+ 1b4:	87 e8       	ldi	r24, 0x87	; 135
+ 1b6:	93 e1       	ldi	r25, 0x13	; 19
+ 1b8:	21 50       	subi	r18, 0x01	; 1
+ 1ba:	80 40       	sbci	r24, 0x00	; 0
+ 1bc:	90 40       	sbci	r25, 0x00	; 0
+ 1be:	e1 f7       	brne	.-8      	; 0x1b8 <_Z2goc+0xae>
+ 1c0:	00 c0       	rjmp	.+0      	; 0x1c2 <_Z2goc+0xb8>
+ 1c2:	00 00       	nop
+ 1c4:	89 b1       	in	r24, 0x09	; 9
+ 1c6:	80 73       	andi	r24, 0x30	; 48
+ 1c8:	e9 f3       	breq	.-6      	; 0x1c4 <_Z2goc+0xba>
+ 1ca:	08 95       	ret
+ 1cc:	85 b1       	in	r24, 0x05	; 5
+ 1ce:	81 7e       	andi	r24, 0xE1	; 225
+ 1d0:	85 b9       	out	0x05, r24	; 5
+ 1d2:	0e 94 5e 00 	call	0xbc	; 0xbc <_Z7read_ULv>
+ 1d6:	85 36       	cpi	r24, 0x65	; 101
+ 1d8:	e0 f3       	brcs	.-8      	; 0x1d2 <_Z2goc+0xc8>
+ 1da:	08 95       	ret
+
+000001dc <_Z9find_pathPbPcPh>:
+ 1dc:	ef 92       	push	r14
+ 1de:	ff 92       	push	r15
+ 1e0:	0f 93       	push	r16
+ 1e2:	1f 93       	push	r17
+ 1e4:	cf 93       	push	r28
+ 1e6:	df 93       	push	r29
+ 1e8:	7c 01       	movw	r14, r24
+ 1ea:	eb 01       	movw	r28, r22
+ 1ec:	8a 01       	movw	r16, r20
+ 1ee:	0e 94 5e 00 	call	0xbc	; 0xbc <_Z7read_ULv>
+ 1f2:	85 36       	cpi	r24, 0x65	; 101
+ 1f4:	08 f4       	brcc	.+2      	; 0x1f8 <_Z9find_pathPbPcPh+0x1c>
+ 1f6:	81 c0       	rjmp	.+258    	; 0x2fa <_Z9find_pathPbPcPh+0x11e>
+ 1f8:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <available_left>
+ 1fc:	88 23       	and	r24, r24
+ 1fe:	09 f4       	brne	.+2      	; 0x202 <_Z9find_pathPbPcPh+0x26>
+ 200:	8c c0       	rjmp	.+280    	; 0x31a <_Z9find_pathPbPcPh+0x13e>
+ 202:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <available_right>
+ 206:	88 23       	and	r24, r24
+ 208:	09 f4       	brne	.+2      	; 0x20c <_Z9find_pathPbPcPh+0x30>
+ 20a:	7b c0       	rjmp	.+246    	; 0x302 <_Z9find_pathPbPcPh+0x126>
+ 20c:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <available_straightl>
+ 210:	88 23       	and	r24, r24
+ 212:	09 f4       	brne	.+2      	; 0x216 <_Z9find_pathPbPcPh+0x3a>
+ 214:	76 c0       	rjmp	.+236    	; 0x302 <_Z9find_pathPbPcPh+0x126>
+ 216:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+ 21a:	88 23       	and	r24, r24
+ 21c:	09 f4       	brne	.+2      	; 0x220 <_Z9find_pathPbPcPh+0x44>
+ 21e:	71 c0       	rjmp	.+226    	; 0x302 <_Z9find_pathPbPcPh+0x126>
+ 220:	85 b1       	in	r24, 0x05	; 5
+ 222:	8d 7e       	andi	r24, 0xED	; 237
+ 224:	85 b9       	out	0x05, r24	; 5
+ 226:	8c e0       	ldi	r24, 0x0C	; 12
+ 228:	85 b9       	out	0x05, r24	; 5
+ 22a:	8f e1       	ldi	r24, 0x1F	; 31
+ 22c:	9e e4       	ldi	r25, 0x4E	; 78
+ 22e:	01 97       	sbiw	r24, 0x01	; 1
+ 230:	f1 f7       	brne	.-4      	; 0x22e <_Z9find_pathPbPcPh+0x52>
+ 232:	00 c0       	rjmp	.+0      	; 0x234 <_Z9find_pathPbPcPh+0x58>
+ 234:	00 00       	nop
+ 236:	0e 94 68 00 	call	0xd0	; 0xd0 <_Z17check_availablityv>
+ 23a:	80 91 03 01 	lds	r24, 0x0103	; 0x800103 <available_left>
+ 23e:	88 23       	and	r24, r24
+ 240:	49 f0       	breq	.+18     	; 0x254 <_Z9find_pathPbPcPh+0x78>
+ 242:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <available_right>
+ 246:	88 23       	and	r24, r24
+ 248:	29 f0       	breq	.+10     	; 0x254 <_Z9find_pathPbPcPh+0x78>
+ 24a:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <available_straightl>
+ 24e:	81 11       	cpse	r24, r1
+ 250:	80 91 00 01 	lds	r24, 0x0100	; 0x800100 <_edata>
+ 254:	f7 01       	movw	r30, r14
+ 256:	80 83       	st	Z, r24
+ 258:	67 c0       	rjmp	.+206    	; 0x328 <_Z9find_pathPbPcPh+0x14c>
+ 25a:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <_edata>
+ 25e:	91 11       	cpse	r25, r1
+ 260:	14 c0       	rjmp	.+40     	; 0x28a <_Z9find_pathPbPcPh+0xae>
+ 262:	31 c0       	rjmp	.+98     	; 0x2c6 <_Z9find_pathPbPcPh+0xea>
+ 264:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <_edata>
+ 268:	91 11       	cpse	r25, r1
+ 26a:	1e c0       	rjmp	.+60     	; 0x2a8 <_Z9find_pathPbPcPh+0xcc>
+ 26c:	95 b1       	in	r25, 0x05	; 5
+ 26e:	95 7f       	andi	r25, 0xF5	; 245
+ 270:	95 b9       	out	0x05, r25	; 5
+ 272:	94 e1       	ldi	r25, 0x14	; 20
+ 274:	95 b9       	out	0x05, r25	; 5
+ 276:	ef e3       	ldi	r30, 0x3F	; 63
+ 278:	fc e9       	ldi	r31, 0x9C	; 156
+ 27a:	31 97       	sbiw	r30, 0x01	; 1
+ 27c:	f1 f7       	brne	.-4      	; 0x27a <_Z9find_pathPbPcPh+0x9e>
+ 27e:	00 c0       	rjmp	.+0      	; 0x280 <_Z9find_pathPbPcPh+0xa4>
+ 280:	00 00       	nop
+ 282:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <available_straightl>
+ 286:	91 11       	cpse	r25, r1
+ 288:	0f c0       	rjmp	.+30     	; 0x2a8 <_Z9find_pathPbPcPh+0xcc>
+ 28a:	90 91 00 01 	lds	r25, 0x0100	; 0x800100 <_edata>
+ 28e:	99 23       	and	r25, r25
+ 290:	59 f0       	breq	.+22     	; 0x2a8 <_Z9find_pathPbPcPh+0xcc>
+ 292:	95 b1       	in	r25, 0x05	; 5
+ 294:	9b 7e       	andi	r25, 0xEB	; 235
+ 296:	95 b9       	out	0x05, r25	; 5
+ 298:	9a e0       	ldi	r25, 0x0A	; 10
+ 29a:	95 b9       	out	0x05, r25	; 5
+ 29c:	ef e3       	ldi	r30, 0x3F	; 63
+ 29e:	fc e9       	ldi	r31, 0x9C	; 156
+ 2a0:	31 97       	sbiw	r30, 0x01	; 1
+ 2a2:	f1 f7       	brne	.-4      	; 0x2a0 <_Z9find_pathPbPcPh+0xc4>
+ 2a4:	00 c0       	rjmp	.+0      	; 0x2a6 <_Z9find_pathPbPcPh+0xca>
+ 2a6:	00 00       	nop
+ 2a8:	90 91 02 01 	lds	r25, 0x0102	; 0x800102 <available_right>
+ 2ac:	99 23       	and	r25, r25
+ 2ae:	39 f0       	breq	.+14     	; 0x2be <_Z9find_pathPbPcPh+0xe2>
+ 2b0:	c8 0f       	add	r28, r24
+ 2b2:	d1 1d       	adc	r29, r1
+ 2b4:	96 e4       	ldi	r25, 0x46	; 70
+ 2b6:	98 83       	st	Y, r25
+ 2b8:	8f 5f       	subi	r24, 0xFF	; 255
+ 2ba:	f8 01       	movw	r30, r16
+ 2bc:	80 83       	st	Z, r24
+ 2be:	86 e4       	ldi	r24, 0x46	; 70
+ 2c0:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 2c4:	31 c0       	rjmp	.+98     	; 0x328 <_Z9find_pathPbPcPh+0x14c>
+ 2c6:	90 91 02 01 	lds	r25, 0x0102	; 0x800102 <available_right>
+ 2ca:	99 23       	and	r25, r25
+ 2cc:	59 f0       	breq	.+22     	; 0x2e4 <_Z9find_pathPbPcPh+0x108>
+ 2ce:	c8 0f       	add	r28, r24
+ 2d0:	d1 1d       	adc	r29, r1
+ 2d2:	92 e5       	ldi	r25, 0x52	; 82
+ 2d4:	98 83       	st	Y, r25
+ 2d6:	8f 5f       	subi	r24, 0xFF	; 255
+ 2d8:	f8 01       	movw	r30, r16
+ 2da:	80 83       	st	Z, r24
+ 2dc:	82 e5       	ldi	r24, 0x52	; 82
+ 2de:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 2e2:	22 c0       	rjmp	.+68     	; 0x328 <_Z9find_pathPbPcPh+0x14c>
+ 2e4:	c8 0f       	add	r28, r24
+ 2e6:	d1 1d       	adc	r29, r1
+ 2e8:	92 e4       	ldi	r25, 0x42	; 66
+ 2ea:	98 83       	st	Y, r25
+ 2ec:	8f 5f       	subi	r24, 0xFF	; 255
+ 2ee:	f8 01       	movw	r30, r16
+ 2f0:	80 83       	st	Z, r24
+ 2f2:	82 e4       	ldi	r24, 0x42	; 66
+ 2f4:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 2f8:	17 c0       	rjmp	.+46     	; 0x328 <_Z9find_pathPbPcPh+0x14c>
+ 2fa:	83 e5       	ldi	r24, 0x53	; 83
+ 2fc:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 300:	13 c0       	rjmp	.+38     	; 0x328 <_Z9find_pathPbPcPh+0x14c>
+ 302:	f8 01       	movw	r30, r16
+ 304:	80 81       	ld	r24, Z
+ 306:	c8 0f       	add	r28, r24
+ 308:	d1 1d       	adc	r29, r1
+ 30a:	9c e4       	ldi	r25, 0x4C	; 76
+ 30c:	98 83       	st	Y, r25
+ 30e:	8f 5f       	subi	r24, 0xFF	; 255
+ 310:	80 83       	st	Z, r24
+ 312:	8c e4       	ldi	r24, 0x4C	; 76
+ 314:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 318:	07 c0       	rjmp	.+14     	; 0x328 <_Z9find_pathPbPcPh+0x14c>
+ 31a:	f8 01       	movw	r30, r16
+ 31c:	80 81       	ld	r24, Z
+ 31e:	90 91 01 01 	lds	r25, 0x0101	; 0x800101 <available_straightl>
+ 322:	91 11       	cpse	r25, r1
+ 324:	9f cf       	rjmp	.-194    	; 0x264 <_Z9find_pathPbPcPh+0x88>
+ 326:	99 cf       	rjmp	.-206    	; 0x25a <_Z9find_pathPbPcPh+0x7e>
+ 328:	df 91       	pop	r29
+ 32a:	cf 91       	pop	r28
+ 32c:	1f 91       	pop	r17
+ 32e:	0f 91       	pop	r16
+ 330:	ff 90       	pop	r15
+ 332:	ef 90       	pop	r14
+ 334:	08 95       	ret
+
+00000336 <_Z11follow_pathPcPh>:
+	//Stop before optimization and wait for restart button -> PD0
+	
+	
+}
+
+bool follow_path(char* path,uint8_t* index){
+ 336:	ff 92       	push	r15
+ 338:	0f 93       	push	r16
+ 33a:	1f 93       	push	r17
+ 33c:	cf 93       	push	r28
+ 33e:	df 93       	push	r29
+ 340:	ec 01       	movw	r28, r24
+ 342:	8b 01       	movw	r16, r22
+	check_availablity();
+ 344:	0e 94 68 00 	call	0xd0	; 0xd0 <_Z17check_availablityv>
+	if(read_UL() > 100){
+ 348:	0e 94 5e 00 	call	0xbc	; 0xbc <_Z7read_ULv>
+ 34c:	85 36       	cpi	r24, 0x65	; 101
+ 34e:	08 f4       	brcc	.+2      	; 0x352 <_Z11follow_pathPcPh+0x1c>
+ 350:	4e c0       	rjmp	.+156    	; 0x3ee <_Z11follow_pathPcPh+0xb8>
+		uint8_t i = *index;
+ 352:	f8 01       	movw	r30, r16
+ 354:	f0 80       	ld	r15, Z
+		switch(*(path+i)){
+ 356:	cf 0d       	add	r28, r15
+ 358:	d1 1d       	adc	r29, r1
+ 35a:	88 81       	ld	r24, Y
+ 35c:	86 34       	cpi	r24, 0x46	; 70
+ 35e:	a9 f0       	breq	.+42     	; 0x38a <_Z11follow_pathPcPh+0x54>
+ 360:	18 f4       	brcc	.+6      	; 0x368 <_Z11follow_pathPcPh+0x32>
+ 362:	82 34       	cpi	r24, 0x42	; 66
+ 364:	61 f1       	breq	.+88     	; 0x3be <_Z11follow_pathPcPh+0x88>
+ 366:	48 c0       	rjmp	.+144    	; 0x3f8 <_Z11follow_pathPcPh+0xc2>
+ 368:	8c 34       	cpi	r24, 0x4C	; 76
+ 36a:	19 f0       	breq	.+6      	; 0x372 <_Z11follow_pathPcPh+0x3c>
+ 36c:	82 35       	cpi	r24, 0x52	; 82
+ 36e:	e1 f0       	breq	.+56     	; 0x3a8 <_Z11follow_pathPcPh+0x72>
+ 370:	43 c0       	rjmp	.+134    	; 0x3f8 <_Z11follow_pathPcPh+0xc2>
+			case 'L':
+				if (!available_left){
+ 372:	c0 91 03 01 	lds	r28, 0x0103	; 0x800103 <available_left>
+ 376:	cc 23       	and	r28, r28
+ 378:	09 f4       	brne	.+2      	; 0x37c <_Z11follow_pathPcPh+0x46>
+ 37a:	43 c0       	rjmp	.+134    	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+					return false;
+				}
+				go('L');*index = i+1;
+ 37c:	8c e4       	ldi	r24, 0x4C	; 76
+ 37e:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 382:	f3 94       	inc	r15
+ 384:	f8 01       	movw	r30, r16
+ 386:	f0 82       	st	Z, r15
+				break;
+ 388:	3c c0       	rjmp	.+120    	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+			case 'F':
+				if (!(available_straightl && available_straightr)){
+ 38a:	c0 91 01 01 	lds	r28, 0x0101	; 0x800101 <available_straightl>
+ 38e:	cc 23       	and	r28, r28
+ 390:	c1 f1       	breq	.+112    	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+ 392:	c0 91 00 01 	lds	r28, 0x0100	; 0x800100 <_edata>
+ 396:	cc 23       	and	r28, r28
+ 398:	a1 f1       	breq	.+104    	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+					return false;
+				}
+				go('F');*index = i+1;
+ 39a:	86 e4       	ldi	r24, 0x46	; 70
+ 39c:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 3a0:	f3 94       	inc	r15
+ 3a2:	f8 01       	movw	r30, r16
+ 3a4:	f0 82       	st	Z, r15
+				break;
+ 3a6:	2d c0       	rjmp	.+90     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+			case 'R':
+				if (!available_right){
+ 3a8:	c0 91 02 01 	lds	r28, 0x0102	; 0x800102 <available_right>
+ 3ac:	cc 23       	and	r28, r28
+ 3ae:	49 f1       	breq	.+82     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+					return false;
+				}
+				go('R');*index = i+1;
+ 3b0:	82 e5       	ldi	r24, 0x52	; 82
+ 3b2:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 3b6:	f3 94       	inc	r15
+ 3b8:	f8 01       	movw	r30, r16
+ 3ba:	f0 82       	st	Z, r15
+				break;
+ 3bc:	22 c0       	rjmp	.+68     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+			case 'B':
+				if (available_left || available_straightl || available_straightr || available_right){
+ 3be:	c0 91 03 01 	lds	r28, 0x0103	; 0x800103 <available_left>
+ 3c2:	c1 11       	cpse	r28, r1
+ 3c4:	1b c0       	rjmp	.+54     	; 0x3fc <_Z11follow_pathPcPh+0xc6>
+ 3c6:	80 91 01 01 	lds	r24, 0x0101	; 0x800101 <available_straightl>
+ 3ca:	81 11       	cpse	r24, r1
+ 3cc:	1a c0       	rjmp	.+52     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+ 3ce:	c0 91 00 01 	lds	r28, 0x0100	; 0x800100 <_edata>
+ 3d2:	c1 11       	cpse	r28, r1
+ 3d4:	15 c0       	rjmp	.+42     	; 0x400 <__LOCK_REGION_LENGTH__>
+ 3d6:	80 91 02 01 	lds	r24, 0x0102	; 0x800102 <available_right>
+ 3da:	81 11       	cpse	r24, r1
+ 3dc:	12 c0       	rjmp	.+36     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+					return false;
+				}
+				go('B');*index = i+1;
+ 3de:	82 e4       	ldi	r24, 0x42	; 66
+ 3e0:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+ 3e4:	f3 94       	inc	r15
+ 3e6:	f8 01       	movw	r30, r16
+ 3e8:	f0 82       	st	Z, r15
+		}
+	}
+	else{
+		go('S');
+	}
+	return true;
+ 3ea:	c1 e0       	ldi	r28, 0x01	; 1
+			case 'B':
+				if (available_left || available_straightl || available_straightr || available_right){
+					return false;
+				}
+				go('B');*index = i+1;
+				break;
+ 3ec:	0a c0       	rjmp	.+20     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+		}
+	}
+	else{
+		go('S');
+ 3ee:	83 e5       	ldi	r24, 0x53	; 83
+ 3f0:	0e 94 85 00 	call	0x10a	; 0x10a <_Z2goc>
+	}
+	return true;
+ 3f4:	c1 e0       	ldi	r28, 0x01	; 1
+ 3f6:	05 c0       	rjmp	.+10     	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+ 3f8:	c1 e0       	ldi	r28, 0x01	; 1
+ 3fa:	03 c0       	rjmp	.+6      	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+				}
+				go('R');*index = i+1;
+				break;
+			case 'B':
+				if (available_left || available_straightl || available_straightr || available_right){
+					return false;
+ 3fc:	c0 e0       	ldi	r28, 0x00	; 0
+ 3fe:	01 c0       	rjmp	.+2      	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
+ 400:	c8 2f       	mov	r28, r24
+	}
+	else{
+		go('S');
+	}
+	return true;
+}
+ 402:	8c 2f       	mov	r24, r28
+ 404:	df 91       	pop	r29
+ 406:	cf 91       	pop	r28
+ 408:	1f 91       	pop	r17
+ 40a:	0f 91       	pop	r16
+ 40c:	ff 90       	pop	r15
+ 40e:	08 95       	ret
+
+00000410 <main>:
+
+int main(void)
+{
+ 410:	cf 93       	push	r28
+ 412:	df 93       	push	r29
+ 414:	cd b7       	in	r28, 0x3d	; 61
+ 416:	de b7       	in	r29, 0x3e	; 62
+ 418:	c6 56       	subi	r28, 0x66	; 102
+ 41a:	d1 09       	sbc	r29, r1
+ 41c:	0f b6       	in	r0, 0x3f	; 63
+ 41e:	f8 94       	cli
+ 420:	de bf       	out	0x3e, r29	; 62
+ 422:	0f be       	out	0x3f, r0	; 63
+ 424:	cd bf       	out	0x3d, r28	; 61
+	initialize_IO();
+ 426:	0e 94 52 00 	call	0xa4	; 0xa4 <_Z13initialize_IOv>
+	char path[100];
+	int pathlength=0;
+	uint8_t index = 0;
+ 42a:	a6 96       	adiw	r28, 0x26	; 38
+ 42c:	1f ae       	std	Y+63, r1	; 0x3f
+ 42e:	a6 97       	sbiw	r28, 0x26	; 38
+    bool found_path = false;
+ 430:	a7 96       	adiw	r28, 0x27	; 39
+ 432:	1f ae       	std	Y+63, r1	; 0x3f
+ 434:	a7 97       	sbiw	r28, 0x27	; 39
+	
+	while (1) 
+    {
+//		LEFT HAND VISUAL
+		while (!found_path)
+ 436:	6e 01       	movw	r12, r28
+ 438:	86 e6       	ldi	r24, 0x66	; 102
+ 43a:	c8 0e       	add	r12, r24
+ 43c:	d1 1c       	adc	r13, r1
+		{
+			check_availablity();
+			find_path(&found_path,&path[0],&index);
+		}
+		pathlength = index-1;
+ 43e:	7e 01       	movw	r14, r28
+ 440:	e5 e6       	ldi	r30, 0x65	; 101
+ 442:	ee 0e       	add	r14, r30
+ 444:	f1 1c       	adc	r15, r1
+		optimize_path(&path[0]);
+		index = 0;
+		while (found_path)
+		{
+			check_availablity();
+			found_path = index < pathlength?follow_path(&path[0],&index):false;
+ 446:	ae 2c       	mov	r10, r14
+ 448:	bf 2c       	mov	r11, r15
+ 44a:	8c 2c       	mov	r8, r12
+ 44c:	9d 2c       	mov	r9, r13
+    bool found_path = false;
+	
+	while (1) 
+    {
+//		LEFT HAND VISUAL
+		while (!found_path)
+ 44e:	f6 01       	movw	r30, r12
+ 450:	80 81       	ld	r24, Z
+ 452:	81 11       	cpse	r24, r1
+ 454:	0c c0       	rjmp	.+24     	; 0x46e <main+0x5e>
+		{
+			check_availablity();
+ 456:	0e 94 68 00 	call	0xd0	; 0xd0 <_Z17check_availablityv>
+			find_path(&found_path,&path[0],&index);
+ 45a:	4a 2d       	mov	r20, r10
+ 45c:	5b 2d       	mov	r21, r11
+ 45e:	be 01       	movw	r22, r28
+ 460:	6f 5f       	subi	r22, 0xFF	; 255
+ 462:	7f 4f       	sbci	r23, 0xFF	; 255
+ 464:	88 2d       	mov	r24, r8
+ 466:	99 2d       	mov	r25, r9
+ 468:	0e 94 ee 00 	call	0x1dc	; 0x1dc <_Z9find_pathPbPcPh>
+    bool found_path = false;
+	
+	while (1) 
+    {
+//		LEFT HAND VISUAL
+		while (!found_path)
+ 46c:	f0 cf       	rjmp	.-32     	; 0x44e <main+0x3e>
+		{
+			check_availablity();
+			find_path(&found_path,&path[0],&index);
+		}
+		pathlength = index-1;
+ 46e:	f7 01       	movw	r30, r14
+ 470:	00 81       	ld	r16, Z
+ 472:	10 e0       	ldi	r17, 0x00	; 0
+ 474:	01 50       	subi	r16, 0x01	; 1
+ 476:	11 09       	sbc	r17, r1
+		optimize_path(&path[0]);
+		index = 0;
+ 478:	10 82       	st	Z, r1
+		while (found_path)
+		{
+			check_availablity();
+ 47a:	0e 94 68 00 	call	0xd0	; 0xd0 <_Z17check_availablityv>
+			found_path = index < pathlength?follow_path(&path[0],&index):false;
+ 47e:	f7 01       	movw	r30, r14
+ 480:	80 81       	ld	r24, Z
+ 482:	90 e0       	ldi	r25, 0x00	; 0
+ 484:	80 17       	cp	r24, r16
+ 486:	91 07       	cpc	r25, r17
+ 488:	5c f4       	brge	.+22     	; 0x4a0 <main+0x90>
+ 48a:	6a 2d       	mov	r22, r10
+ 48c:	7b 2d       	mov	r23, r11
+ 48e:	ce 01       	movw	r24, r28
+ 490:	01 96       	adiw	r24, 0x01	; 1
+ 492:	0e 94 9b 01 	call	0x336	; 0x336 <_Z11follow_pathPcPh>
+ 496:	f6 01       	movw	r30, r12
+ 498:	80 83       	st	Z, r24
+			find_path(&found_path,&path[0],&index);
+		}
+		pathlength = index-1;
+		optimize_path(&path[0]);
+		index = 0;
+		while (found_path)
+ 49a:	81 11       	cpse	r24, r1
+ 49c:	ee cf       	rjmp	.-36     	; 0x47a <main+0x6a>
+ 49e:	d7 cf       	rjmp	.-82     	; 0x44e <main+0x3e>
+		{
+			check_availablity();
+			found_path = index < pathlength?follow_path(&path[0],&index):false;
+ 4a0:	f6 01       	movw	r30, r12
+ 4a2:	10 82       	st	Z, r1
+ 4a4:	d4 cf       	rjmp	.-88     	; 0x44e <main+0x3e>
+
+000004a6 <_exit>:
+ 4a6:	f8 94       	cli
+
+000004a8 <__stop_program>:
+ 4a8:	ff cf       	rjmp	.-2      	; 0x4a8 <__stop_program>
